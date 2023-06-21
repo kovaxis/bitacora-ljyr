@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitacora Memorice</title>
+    <script src="main.js"></script>
+    <script src="games.js"></script>
+    <style>
+        html {
+            margin: 0;
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            height: 100%;
+            background-color: #DDD;
+            text-align: center;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        footer {
+            margin: 4px;
+            color: gray;
+            font-size: 14px;
+            text-align: right;
+        }
+
+        .message-box {
+            min-height: 80px;
+            font-size: 20px;
+        }
+
+        .grid-container {
+            width: calc(min(100vw, 120vh));
+            align-self: center;
+            flex-grow: 1;
+
+            display: flex;
+            flex-flow: row;
+            flex-wrap: wrap;
+            align-content: start;
+            justify-content: center;
+            gap: 1em;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .card {
+            width: 150px;
+            height: 200px;
+            overflow-y: auto;
+            background-color: #FFFFFF;
+            border-radius: 4px;
+            padding: 5px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .card-desc {
+            text-align: center;
+        }
+
+        .card-image {
+            border-radius: 4px;
+        }
+
+        .card {
+            transition: background-color 0.4s;
+        }
+
+        .card-contents {
+            transition: opacity 0.2s;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Bitácora Liderazgo, Juegos y Recreación</h1>
+    <p id="message-box" class="message-box"></p>
+    <div id="root-grid" class="grid-container"></div>
+    <footer>Octavio Águila, Martín Andrighetti, Gabriel Sandoval - Liderazgo Juegos y Recreación, UC 2023-1</footer>
+</body>
+
+</html>
