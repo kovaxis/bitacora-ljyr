@@ -24,6 +24,11 @@
             flex-direction: column;
         }
 
+        h1 {
+            font-size: 24px;
+            margin-bottom: 0.5em;
+        }
+
         footer {
             margin: 4px;
             color: gray;
@@ -32,11 +37,13 @@
         }
 
         .message-box {
-            min-height: 80px;
-            font-size: 20px;
+            margin: 0;
+            min-height: 60px;
+            font-size: 16px;
         }
 
         .grid-container {
+            margin: 0;
             width: calc(min(100vw, 120vh));
             align-self: center;
             flex-grow: 1;
@@ -46,6 +53,7 @@
             flex-wrap: wrap;
             align-content: start;
             justify-content: center;
+            padding: 1em;
             gap: 1em;
             overflow-x: hidden;
             overflow-y: auto;
@@ -58,6 +66,7 @@
             background-color: #FFFFFF;
             border-radius: 4px;
             padding: 5px;
+            filter: drop-shadow(2px 2px 2px gray);
 
             display: flex;
             flex-direction: column;
@@ -87,7 +96,7 @@
 </head>
 
 <body>
-    <h1>Bitácora Liderazgo, Juegos y Recreación</h1>
+    <h1>Bitácora-memorice</h1>
     <p id="message-box" class="message-box"></p>
     <div id="root-grid" class="grid-container"></div>
     <footer>Octavio Águila, Martín Andrighetti, Gabriel Sandoval - Liderazgo Juegos y Recreación, UC 2023-1</footer>
