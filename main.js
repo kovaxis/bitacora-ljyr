@@ -39,13 +39,14 @@ function setMessage(txt, color = 'black') {
 function setShown(card, shown) {
     card.shown = shown
     card.contentsElem.style.opacity = shown ? 1 : 0
+    card.cardElem.style.backgroundColor = shown ? '#ffffff' : card.color
 }
 
 function wonPair(game) {
     game.won = true
     for (const kind in game.cards) {
         const card = game.cards[kind]
-        card.cardElem.style.backgroundColor = "#D0F0D0"
+        card.cardElem.style.backgroundColor = "hsl(124, 100%, 75%)"
     }
     let wonAll = true
     for (const g of games) {
@@ -59,24 +60,19 @@ function wonPair(game) {
 }
 
 function lostPair() {
-    setMessage("Esas tarjetas no calzan :(<br>Toca cualquier tarjeta para volver a intentarlo.")
+    setMessage("Esas tarjetas no calzan :(<br>Toca la pantalla para seguir jugando.")
 }
 
-function onCardClick(gameId, kind) {
+function onCardClick(ev, gameId, kind) {
     const game = games[gameId]
     console.log(`clicked on ${kind} card of game ${game.title}`)
     if (game.won) return
 
     const card = game.cards[kind]
-    const otherCard = game.cards[kind === 'title' ? 'desc' : 'title']
 
     let shownCards = getShownCards()
 
     if (shownCards.length === 2) {
-        for (const card of shownCards) {
-            setShown(card, false)
-        }
-        setMessage("Toca una tarjeta.")
         return
     }
 
@@ -95,13 +91,32 @@ function onCardClick(gameId, kind) {
         // shownCards.length === 0
         setMessage("Toca una tarjeta.")
     }
+
+    ev.stopPropagation()
+}
+
+function onAnywhereClick() {
+    let shownCards = getShownCards()
+
+    if (shownCards.length === 2) {
+        for (const card of shownCards) {
+            setShown(card, false)
+        }
+        setMessage("Toca una tarjeta.")
+        return
+    }
 }
 
 function createCard(id, kind) {
+    //const hue = (170 + Math.random() * (360 - (170 - 60))) % 360
+    const hue = Math.random() * 360
+    const color = `hsl(${hue}, 70%, 97%)`
+
     const card = document.createElement('div')
     card.classList.add('card')
-    card.addEventListener('click', () => {
-        onCardClick(id, kind)
+    card.style.backgroundColor = color
+    card.addEventListener('click', ev => {
+        onCardClick(ev, id, kind)
     })
 
     const contents = document.createElement('div')
@@ -112,6 +127,7 @@ function createCard(id, kind) {
     return {
         id,
         kind,
+        color: color,
         shown: false,
         cardElem: card,
         contentsElem: contents,
@@ -157,6 +173,7 @@ function createGame(gameData) {
 
 window.addEventListener('load', () => {
     const grid = document.getElementById('root-grid')
+    document.addEventListener('click', onAnywhereClick)
 
     // Choose gameCount random games and create their cards
     let someGames = rawGameData.slice()

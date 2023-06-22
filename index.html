@@ -7,6 +7,7 @@
     <title>Bitacora Memorice</title>
     <script src="main.js"></script>
     <script src="games.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Condensed">
     <style>
         html {
             margin: 0;
@@ -16,9 +17,10 @@
         body {
             margin: 0;
             height: 100%;
-            background-color: #DDD;
+            background-color: #EEE;
             text-align: center;
-            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+            font-family: 'Roboto Condensed', sans-serif;
 
             display: flex;
             flex-direction: column;
@@ -26,13 +28,13 @@
 
         h1 {
             font-size: 24px;
-            margin-bottom: 0.5em;
+            margin-bottom: 0;
         }
 
         footer {
             margin: 4px;
             color: gray;
-            font-size: 14px;
+            font-size: 12px;
             text-align: right;
         }
 
@@ -53,8 +55,8 @@
             flex-wrap: wrap;
             align-content: start;
             justify-content: center;
-            padding: 1em;
             gap: 1em;
+            padding: 0.5em 0;
             overflow-x: hidden;
             overflow-y: auto;
         }
@@ -63,7 +65,6 @@
             width: 150px;
             height: 200px;
             overflow-y: auto;
-            background-color: #FFFFFF;
             border-radius: 4px;
             padding: 5px;
             filter: drop-shadow(2px 2px 2px gray);
@@ -99,7 +100,11 @@
     <h1>Bitácora-memorice</h1>
     <p id="message-box" class="message-box"></p>
     <div id="root-grid" class="grid-container"></div>
-    <footer>Octavio Águila, Martín Andrighetti, Gabriel Sandoval - Liderazgo Juegos y Recreación, UC 2023-1</footer>
+    <footer>
+        Octavio Águila, Martín Andrighetti, Gabriel Sandoval
+        <br>
+        Liderazgo Juegos y Recreación, UC Chile, 2023-1
+    </footer>
 </body>
 
 </html>
