@@ -1,26 +1,31 @@
 #!/usr/bin/env python3
 
-import math
+import sys
 import re
-from dataclasses import dataclass
 import html
 import json
 import os
 from PIL import Image
+import zipfile
+import shutil
 
-# First, extract games from the htmlified Google Docs document
+# Extract the zipped content
+print("extracting archive...", flush=True, end="")
+with zipfile.ZipFile(sys.argv[1], "r") as file:
+    shutil.rmtree("./src_doc")
+    os.mkdir("./src_doc")
+    file.extractall("./src_doc")
+print(" done")
 
+# Parse game data from the htmlified Google Docs document
+print("parsing game metadata...", flush=True, end="")
 with open("src_doc/Bitacora.html", "r") as file:
     src = file.read()
 
 flags = re.MULTILINE | re.DOTALL
 
 re_img = re.compile(r'src="([^"]+)"', flags)
-re_txt = re.compile(r'<span class="c\d">([^<]+)</span>', flags)
-
-
-def clean_text(txt: str) -> str:
-    return html.unescape(txt.strip())
+re_txt = re.compile(r'>([^<]+)<', flags)
 
 
 images = []
@@ -47,6 +52,11 @@ for img_i, img in enumerate(images):
         break
     i += title_match.end()
 
+    obj_match = re_txt.search(src[i:end])
+    if not obj_match:
+        break
+    i += obj_match.end()
+
     desc = []
     while True:
         desc_match = re_txt.search(src[i:end])
@@ -57,21 +67,25 @@ for img_i, img in enumerate(images):
 
     game = {
         "image": f"{img['src']}.jpg",
-        "title": clean_text(title_match[1]),
-        "desc": clean_text(" ".join(desc)),
+        "title": html.unescape(title_match[1]).strip(),
+        "obj": obj_match[1].strip(),
+        "desc": html.unescape(" ".join(desc)).strip(),
     }
     games.append(game)
 
-    print("got game:")
-    print(f"  image: \"{game['image']}\"")
-    print(f"  title: {game['title']}")
-    print(f"  description: {game['desc']}")
-
-with open("games.js", "w") as file:
+with open("gamedata.js", "w") as file:
     file.write("rawGameData=")
     json.dump(games, file)
 
+print(" done")
+
+print(f"got {len(games)} games")
+for game in games:
+    if not game['image'] or not game['title'] or not game['obj'] or not game['desc']:
+        print(f"invalid game {game}")
+
 # Now, resize all images
+print("thumbnailing images...", flush=True, end="")
 imgw = 110
 imgh = 120
 bg = Image.new('RGBA', (imgw, imgh), (255, 255, 255, 255))
@@ -86,3 +100,4 @@ for filename in os.listdir("src_doc/images"):
     img = Image.alpha_composite(bg, img).convert('RGB')
 
     img.save(f"images/{filename}.jpg", "JPEG", quality=80)
+print(" done")

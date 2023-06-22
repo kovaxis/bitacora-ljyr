@@ -30,10 +30,9 @@ function getShownCards() {
     return shown
 }
 
-function setMessage(txt, color = 'black') {
+function setMessage(txt) {
     const msgElem = document.getElementById('message-box')
     msgElem.innerHTML = txt
-    msgElem.style.color = color
 }
 
 function setShown(card, shown) {
@@ -54,14 +53,30 @@ function wonPair(game) {
         if (!g.won) wonAll = false
     }
     if (wonAll) {
-        setMessage("Felicitaciones, encontraste todos los pares!<br><a href=\"javascript:window.location.reload()\">Jugar de nuevo</a> <a href=\"?games=" + Math.round(gameCount * 1.1 + 2) + "\">Más difícil</a>")
+        let msg = ''
+        msg += '<span style="color: darkgreen;">Felicitaciones, encontraste todos los juegos!</span>'
+        msg += '<br>'
+        msg += `Objetivo de "${game.title}": ${game.obj}`
+        msg += '<br>'
+        msg += `<a href="javascript:window.location.reload()">Reintentar con otros juegos</a> `
+        if (gameCount < rawGameData.length) {
+            msg += `<a href="?games=${Math.round(gameCount + 2)}">Más difícil</a> `
+        }
+        setMessage(msg)
     } else {
-        setMessage("Felicitaciones, encontraste un par!<br>Toca otra tarjeta para seguir jugando.")
+        let msg = ''
+        msg += '<span style="color: darkgreen;">Felicitaciones, juntaste un juego y su descripción!</span>'
+        msg += '<br>'
+        msg += `Objetivo de "${game.title}": ${game.obj}`
+        setMessage(msg)
     }
 }
 
 function lostPair() {
-    setMessage("Esas tarjetas no calzan :(<br>Toca la pantalla para seguir jugando.")
+    let msg = '<span style="color: darkred;">Esas tarjetas no calzan :(</span>'
+    msg += '<br>'
+    msg += 'Toca la pantalla para seguir jugando.'
+    setMessage(msg)
 }
 
 function onCardClick(ev, gameId, kind) {
@@ -163,6 +178,7 @@ function createGame(gameData) {
         image: gameData.image,
         title: gameData.title,
         desc: gameData.desc,
+        obj: gameData.obj,
         won: false,
         cards: {
             title: titleCard,
