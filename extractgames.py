@@ -72,7 +72,7 @@ with open("games.js", "w") as file:
     json.dump(games, file)
 
 # Now, resize all images
-imgw = 120
+imgw = 110
 imgh = 120
 bg = Image.new('RGBA', (imgw, imgh), (255, 255, 255, 255))
 for filename in os.listdir("src_doc/images"):

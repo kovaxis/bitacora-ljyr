@@ -1,7 +1,7 @@
 
 const params = new URLSearchParams(window.location.search)
 
-const gameCount = parseInt(params.get('games')) || 4  // How many games to put in screen. Cards are 2x the amount of games.
+const gameCount = parseInt(params.get('games')) || 6  // How many games to put in screen. Cards are 2x the amount of games.
 const repeatGames = params.get('repeat') != null  // DEBUG: Optionally repeat the games to fill with synthetic content
 
 const games = []
@@ -40,6 +40,7 @@ function setShown(card, shown) {
     card.shown = shown
     card.contentsElem.style.opacity = shown ? 1 : 0
     card.cardElem.style.backgroundColor = shown ? '#ffffff' : card.color
+    card.cardElem.style.overflow = shown ? 'auto' : 'hidden'
 }
 
 function wonPair(game) {
@@ -114,17 +115,15 @@ function createCard(id, kind) {
 
     const card = document.createElement('div')
     card.classList.add('card')
-    card.style.backgroundColor = color
     card.addEventListener('click', ev => {
         onCardClick(ev, id, kind)
     })
 
     const contents = document.createElement('div')
-    contents.style.opacity = 0
     contents.classList.add('card-contents')
     card.appendChild(contents)
 
-    return {
+    const c = {
         id,
         kind,
         color: color,
@@ -132,6 +131,8 @@ function createCard(id, kind) {
         cardElem: card,
         contentsElem: contents,
     }
+    setShown(c, false)
+    return c
 }
 
 function createGame(gameData) {
@@ -140,15 +141,15 @@ function createGame(gameData) {
     const titleCard = createCard(id, 'title')
 
     const imageElem = document.createElement('img')
-    imageElem.width = 120
+    imageElem.width = 110
     imageElem.height = 120
     imageElem.draggable = false
     imageElem.src = gameData.image
     imageElem.classList.add('card-image')
     titleCard.contentsElem.appendChild(imageElem)
 
-    const titleElem = document.createElement('p')
-    titleElem.innerText = gameData.title
+    const titleElem = document.createElement('div')
+    titleElem.appendChild(document.createTextNode(gameData.title))
     titleElem.classList.add('card-title')
     titleCard.contentsElem.appendChild(titleElem)
 

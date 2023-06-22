@@ -55,43 +55,51 @@
             flex-wrap: wrap;
             align-content: start;
             justify-content: center;
-            gap: 1em;
+            gap: 4px;
             padding: 0.5em 0;
             overflow-x: hidden;
             overflow-y: auto;
         }
 
         .card {
-            width: 150px;
+            width: 110px;
             height: 200px;
-            overflow-y: auto;
             border-radius: 4px;
-            padding: 5px;
             filter: drop-shadow(2px 2px 2px gray);
+            transition: background-color 0.4s;
+
+            -webkit-user-select: none;
+            user-select: none;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-contents {
+            flex-grow: 1;
 
             display: flex;
             flex-direction: column;
             align-items: center;
-            text-align: center;
 
-            -webkit-user-select: none;
-            user-select: none;
+            transition: opacity 0.2s;
+        }
+
+        .card-title {
+            flex-grow: 1;
+
+            margin: 5px;
+            font-size: 14px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .card-desc {
+            padding: 4px;
             text-align: center;
-        }
-
-        .card-image {
-            border-radius: 4px;
-        }
-
-        .card {
-            transition: background-color 0.4s;
-        }
-
-        .card-contents {
-            transition: opacity 0.2s;
+            font-size: 14px;
         }
     </style>
 </head>
