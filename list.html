@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Juegos</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Condensed">
+    <style>
+        html {
+            margin: 0;
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            height: 100%;
+            background-color: #EEE;
+            text-align: center;
+
+            font-family: 'Roboto Condensed', sans-serif;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 0;
+        }
+
+        footer {
+            margin: 4px;
+            color: gray;
+            font-size: 12px;
+            text-align: right;
+        }
+
+        .main {
+            margin: 0;
+            width: calc(min(100vw, 25em));
+            align-self: center;
+            flex-grow: 1;
+
+            font-size: 20px;
+            text-align: left;
+            padding-top: 3em;
+            padding-left: 2em;
+            padding-right: 2em;
+            overflow-x: hidden;
+            overflow-y: auto;
+
+            display: flex;
+            flex-direction: column;
+            gap: 5em;
+        }
+
+        h2 {
+            font-size: 24px;
+        }
+
+        p {
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .game {
+            display: flex;
+            flex-flow: column;
+            align-items: center;
+        }
+
+        .back {
+            font-size: 12px;
+        }
+    </style>
+    <script src="gamedata.js"></script>
+    <script>
+        window.addEventListener('load', () => {
+            const grid = document.getElementById('root-grid')
+            for (const gameData of rawGameData) {
+                const game = document.createElement('div')
+                game.classList.add('game')
+
+                const image = document.createElement('img')
+                image.width = 110
+                image.height = 120
+                image.src = gameData.image
+
+                const name = document.createElement('h2')
+                name.innerText = gameData.title
+
+                const obj = document.createElement('p')
+                obj.innerHTML = `Objetivo: ${gameData.obj}`
+
+                const desc = document.createElement('p')
+                desc.innerText = gameData.desc
+
+                game.appendChild(image)
+                game.appendChild(name)
+                game.appendChild(obj)
+                game.appendChild(desc)
+
+                grid.appendChild(game)
+            }
+        })
+    </script>
+</head>
+
+<body>
+    <h1>Listado de juegos</h1>
+    <a class="back" href="/">Volver al inicio</a>
+    <div id="root-grid" class="main"></div>
+    <footer>
+        Octavio Águila, Martín Andrighetti, Gabriel Sandoval
+        <br>
+        Liderazgo Juegos y Recreación, UC Chile, 2023-1
+    </footer>
+</body>
+
+</html>

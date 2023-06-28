@@ -5,8 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bitacora Memorice</title>
-    <script src="main.js"></script>
-    <script src="gamedata.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Condensed">
     <style>
         html {
@@ -27,8 +25,12 @@
         }
 
         h1 {
-            font-size: 24px;
+            font-size: 48px;
             margin-bottom: 0;
+        }
+
+        h2 {
+            margin-top: 6em;
         }
 
         footer {
@@ -38,76 +40,122 @@
             text-align: right;
         }
 
-        .message-box {
+        .main {
             margin: 0;
-            min-height: 60px;
-            font-size: 16px;
-        }
-
-        .grid-container {
-            margin: 0;
-            width: calc(min(100vw, 120vh));
+            width: calc(min(100vw, 100vh));
             align-self: center;
             flex-grow: 1;
 
-            display: flex;
-            flex-flow: row;
-            flex-wrap: wrap;
-            align-content: start;
-            justify-content: center;
-            gap: 4px;
-            padding: 0.5em 0;
+            font-size: 20px;
+            text-align: left;
+            padding-top: 3em;
             overflow-x: hidden;
             overflow-y: auto;
-        }
-
-        .card {
-            width: 110px;
-            height: 200px;
-            border-radius: 4px;
-            filter: drop-shadow(2px 2px 2px gray);
-            transition: background-color 0.4s;
-
-            -webkit-user-select: none;
-            user-select: none;
 
             display: flex;
             flex-direction: column;
         }
 
-        .card-contents {
-            flex-grow: 1;
-
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
-            transition: opacity 0.2s;
-        }
-
-        .card-title {
-            flex-grow: 1;
-
-            margin: 5px;
-            font-size: 14px;
-
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .card-desc {
-            padding: 4px;
-            text-align: center;
-            font-size: 14px;
+        .play {
+            font-size: 40px;
+            align-self: center;
         }
     </style>
 </head>
 
 <body>
-    <h1>Bitácora-memorice</h1>
-    <p id="message-box" class="message-box"></p>
-    <div id="root-grid" class="grid-container"></div>
+    <h1>Bitácora</h1>
+    <div id="root-grid" class="main">
+        <p>
+            Somos el equipo de Octavio Águila, Martín Andrighetti y Gabriel Sandoval, y esta es nuestra bitácora.
+            En esta bitácora tenemos <a href="list.html">todos los juegos que hemos probado durante el semestre</a>.
+        </p>
+
+        <p>
+            Para hacerlo más entretenido, tenemos un último meta-juego: la bitácora-memorice.
+            Este juego es como el memorice, pero en lugar de parear cartas iguales hay que parear cada juego con su
+            descripción.
+            Se juega con una selección aleatoria de todos los juegos de la bitácora.
+            La selección de juegos es distinta cada vez!
+        </p>
+
+        <a class="play" href="game.html">Jugar!</a>
+
+        <h2>Reflexiones personales</h2>
+
+        <h3>Reflexión Octavio Águila</h3>
+
+        <p>
+            El curso significó una herramienta útil para mi aprendizaje ya que en cada clase se aprendían habilidades
+            distintas, generalmente enfocadas en un objetivo en específico. Aspectos como el trabajo en equipo, el
+            liderazgo, el ingenio o el manejo de grupos eran parte del día a día, y estoy seguro que estos conocimientos
+            se pueden traspasar a mi futura vida laboral e incluso personal.
+        </p>
+        <p>
+            Por otro lado el ramo fue una instancia semanal ideal para salir de la rutina, distenderse y recargar
+            energías para poder sobrellevar la universidad. En todos los bloques semanales aprovechaba olvidar un rato
+            mis responsabilidades, al menos en el transcurso del bloque, lo que me permitió desestresarme y alivianar mi
+            carga académica.
+        </p>
+        <p>
+            Por último, creo que el curso da la oportunidad de conocer personas muy interesantes y diversas, con las que
+            quizás nunca hubiera entablado conversación en mi día a día. Sin duda este aspecto enriquece la experiencia,
+            potenciado especialmente por la capacidad de manejo de grupo que tiene el profesor, el cual hace que las
+            relaciones y lazos se den de manera espontánea.
+        </p>
+        <p>
+            Sin duda me llevo muchas buenas experiencias y aprendizajes del ramo. Espero que muchas gente pueda tomarlo
+            y vivir la bonita experiencia.
+        </p>
+
+        <h3>Reflexión Martín Andrighetti</h3>
+
+        <p>
+            Dos horas antes de la toma de ramos mi intención era tomar el deportivo de Judo. Media hora antes de la toma
+            de ramos, me vi forzado a elegir otro curso por topes de horario. Recordé la recomendación que alguna vez me
+            hizo una amiga, y tomé Liderazgo Juegos y Recreación, sin saber qué esperar. Un semestre más tarde, estoy
+            infinitamente agradecido de haber tomado esa decisión.
+        </p>
+        <p>
+            Este ramo me mantuvo conectado con la universidad, y me impulsó a socializar todas las semanas. Gracias a
+            este ramo participé y organicé actividades entretenidas, que de otra manera no les hubiera dedicado el
+            tiempo. Hice tantas actividades alocadas que nunca hubiera pensado en hacer, como pedirle matrimonio a un
+            extraño en el campus, bailar cueca con las personas que descansaban en la cancha de fútbol y jugar a romper
+            huevos con mi hermano.
+        </p>
+        <p>
+            También aprendí bastante, sobre todo sobre la organización práctica de un grupo. Noté la importancia de
+            tener flexibilidad en la planificación, y de priorizar la simplicidad siempre. Aprendí que los juegos más
+            simples pueden ser entretenidos con las personas correctas, y redescubrí juegos que no jugaba desde pequeño.
+            Me di cuenta que si nos damos la oportunidad podemos seguir disfrutando como si fuéramos niños.
+        </p>
+        <p>
+            Me llevo buenos recuerdos, buenos aprendizajes y sobre todo una actitud mucho más relajada y lúdica para
+            enfrentar la vida. Infinitamente recomendado Liderazgo Juegos y Recreación.
+        </p>
+
+        <h3>Reflexión Gabriel Sandoval</h3>
+
+        <p>
+            LJYR, es un ramo que no he dejado de recomendar desde el día que asistí a la primera clase: Ese sentimiento
+            de que no conozco a nadie de una clase, pero aún así sé que conectamos tanto por el simple hecho de querer
+            desconectar de lo que es la vida universitaria es algo que viene a mi cabeza constantemente dentro del curso
+            mientras estamos jugando.
+        </p>
+        <p>
+            Me encanta tener la oportunidad de conectar con mi yo que sentía había perdido hace tanto tiempo, quien
+            siempre quería jugar a alguna cosa nueva, entretenida y descubrir todo lo que se podía hacer con cosas tan
+            simples como un balón y más personas. Luego de terminar el curso, siento que eso es lo que más disfruté fué
+            el sentimiento de volver a desconectar para jugar, para correr, para caer, para reír y disfrutar de lo que
+            puede ser conectar con más gente que solo busca desconectar de lo gris que puede llegar a ser el día a día.
+        </p>
+        <p>
+            Este curso presenta oportunidades muy hermosas, las cuales me permitieron conectar conmigo y proyectarse en
+            alguien que me gustaría ser, dándome las habilidades para que si el día de mañana se me da la oportunidad,
+            pueda liderar juegos tan entretenidos como los que hace don osvaldo spa, solo me queda agradecer lo
+            maravilloso que pudo llegar a ser este curso y que si por mi fuera, lo tomaría todas las veces que pudiera.
+        </p>
+    </div>
     <footer>
         Octavio Águila, Martín Andrighetti, Gabriel Sandoval
         <br>
