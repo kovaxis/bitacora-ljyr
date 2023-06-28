@@ -12,7 +12,10 @@ import shutil
 # Extract the zipped content
 print("extracting archive...", flush=True, end="")
 with zipfile.ZipFile(sys.argv[1], "r") as file:
-    shutil.rmtree("./src_doc")
+    try:
+        shutil.rmtree("./src_doc")
+    except OSError:
+        pass
     os.mkdir("./src_doc")
     file.extractall("./src_doc")
 print(" done")
@@ -41,6 +44,21 @@ while True:
     })
 
 
+def clean_text(txt: str, unescape: bool, end_dot: bool):
+    if unescape:
+        txt = html.unescape(txt)
+    txt = txt.strip()
+    if txt:
+        txt = txt[0].upper() + txt[1:]
+    if end_dot:
+        if txt and txt[-1] != ".":
+            txt += "."
+    else:
+        while txt and txt[-1] == ".":
+            txt = txt[:-1]
+    return txt
+
+
 games = []
 for img_i, img in enumerate(images):
     end: int = len(src) if img_i + 1 == len(images) else images[img_i+1]['at']
@@ -49,27 +67,28 @@ for img_i, img in enumerate(images):
 
     title_match = re_txt.search(src[i:end])
     if not title_match:
-        break
+        raise Exception(f"no title for image {img}")
     i += title_match.end()
 
     obj_match = re_txt.search(src[i:end])
     if not obj_match:
-        break
+        raise Exception(f"no objective for image {img}")
     i += obj_match.end()
 
-    desc = []
-    while True:
-        desc_match = re_txt.search(src[i:end])
-        if not desc_match:
-            break
-        desc.append(desc_match[1])
-        i += desc_match.end()
+    desc_match = re_txt.search(src[i:end])
+    if not desc_match:
+        raise Exception(f"no description for image {img}")
+    i += desc_match.end()
+
+    extra_match = re_txt.search(src[i:end])
+    if extra_match:
+        raise Exception(f"found extra text '{extra_match[1]}' for image {img}")
 
     game = {
         "image": f"{img['src']}.jpg",
-        "title": html.unescape(title_match[1]).strip(),
-        "obj": obj_match[1].strip(),
-        "desc": html.unescape(" ".join(desc)).strip(),
+        "title": clean_text(title_match[1], True, False),
+        "obj": clean_text(obj_match[1], False, False),
+        "desc": clean_text(desc_match[1], True, True),
     }
     games.append(game)
 
@@ -100,4 +119,9 @@ for filename in os.listdir("src_doc/images"):
     img = Image.alpha_composite(bg, img).convert('RGB')
 
     img.save(f"images/{filename}.jpg", "JPEG", quality=80)
+print(" done")
+
+# Remove original zip in order to mark it as consumed
+print("removing zip file...", flush=True, end="")
+os.remove(sys.argv[1])
 print(" done")
